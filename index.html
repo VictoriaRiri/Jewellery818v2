@@ -1,39 +1,189 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+<style>
+  :root {
+    --void: #09060a;
+    --burgundy-deep: #1a0e13;
+    --gold-leaf: #a07c58;
+    --champagne-ethereal: rgba(216, 200, 174, 0.8);
+    --transition-slow: 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+  }
 
-const Jewellery818 = () => {
-  const [loading, setLoading] = useState(true);
+  body {
+    background-color: var(--void);
+    color: var(--champagne-ethereal);
+    overflow-x: hidden;
+  }
 
-  // Luxury timing: heavy, deliberate, and smooth
-  const luxuryEase = [0.22, 1, 0.36, 1];
+  /* ═══════════════════════════════════════
+     THE HERO: THE ICONIC SUSPENSION
+  ═══════════════════════════════════════ */
+  .hero-mythology {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
 
-  useEffect(() => {
-    // 4 seconds to allow the "sensory" loading to breathe
-    const timer = setTimeout(() => setLoading(false), 4500);
-    return () => clearTimeout(timer);
-  }, []);
+  /* The "Hanging" line - 818 visual motif */
+  .suspension-line {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 1px;
+    height: 45vh;
+    background: linear-gradient(to bottom, transparent, var(--gold-leaf));
+    transform: translateX(-50%);
+    opacity: 0.6;
+  }
 
-  return (
-    <div className="bg-[#09060a] text-[#ede4d4] selection:bg-[#461420] selection:text-[#d8c8ae] min-h-screen overflow-x-hidden font-serif">
-      
-      {/* 1. THE SENSORY LOADING PAGE (The Entrance) */}
-      <AnimatePresence>
-        {loading && (
-          <motion.div 
-            initial={{ opacity: 1 }}
-            exit={{ 
-              opacity: 0,
-              transition: { duration: 2, ease: luxuryEase } 
-            }}
-            className="fixed inset-0 z-[100] bg-[#09060a] flex flex-col items-center justify-center"
-          >
-            {/* Background Texture for Loader */}
-            <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/dark-leather.png')] pointer-events-none" />
-            
-            <div className="relative flex flex-col items-center">
-              {/* Falling Object Shadow Physics */}
-              <motion.div 
-                initial={{ y: -60, opacity: 0, scale: 0.8 }}
+  .hero-main-piece {
+    z-index: 2;
+    width: 300px;
+    height: auto;
+    filter: drop-shadow(0 0 30px rgba(0,0,0,0.8));
+    animation: float-slow 6s ease-in-out infinite;
+  }
+
+  @keyframes float-slow {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(15px) rotate(1deg); }
+  }
+
+  .hero-title {
+    position: absolute;
+    bottom: 10%;
+    font-family: 'Cinzel', serif;
+    letter-spacing: 0.8rem;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    opacity: 0.5;
+  }
+
+  /* ═══════════════════════════════════════
+     THE ARCHIVE: POETIC REVIEWS
+  ═══════════════════════════════════════ */
+  .archive-section {
+    padding: 20vh 10%;
+    text-align: center;
+    border-top: 1px solid rgba(160, 124, 88, 0.1);
+  }
+
+  .poetic-quote {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 1.8rem;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+    color: var(--gold-leaf);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: var(--transition-slow);
+  }
+
+  .poetic-quote.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .quote-attribution {
+    display: block;
+    margin-top: 2rem;
+    font-family: 'Cormorant Garamond', serif;
+    text-transform: uppercase;
+    letter-spacing: 0.3rem;
+    font-size: 0.6rem;
+    opacity: 0.4;
+  }
+
+  /* ═══════════════════════════════════════
+     PRODUCT PRESENTATION: THE GALLERY
+  ═══════════════════════════════════════ */
+  .product-ritual-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0; /* Removing gaps for "installation" feel */
+    background: var(--void);
+  }
+
+  .product-cell {
+    position: relative;
+    height: 80vh;
+    overflow: hidden;
+    border: 0.5px solid rgba(160, 124, 88, 0.05);
+  }
+
+  .product-cell img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 2s ease;
+    filter: brightness(0.7) contrast(1.1);
+  }
+
+  .product-cell:hover img {
+    transform: scale(1.05);
+    filter: brightness(0.9);
+  }
+
+  .product-info-overlay {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+    pointer-events: none;
+  }
+
+  .product-name {
+    font-family: 'Cinzel', serif;
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+    display: block;
+  }
+
+  .product-myth {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.9rem;
+    opacity: 0.6;
+  }
+</style>
+
+<section class="hero-mythology">
+  <div class="suspension-line"></div>
+  <img src="IMG_20260509_085918.jpg" class="hero-main-piece" alt="The Signature Suspension">
+  <h1 class="hero-title">Suspended Elegance</h1>
+</section>
+
+<section class="archive-section" id="archive">
+  <div class="poetic-quote">
+    "It arrived like a whisper from another era. Weightless, yet it holds the gravity of a thousand memories."
+    <span class="quote-attribution">— Fragment 818.A</span>
+  </div>
+</section>
+
+<section class="product-ritual-grid">
+  <div class="product-cell">
+    <img src="IMG_20260509_084559.jpg" alt="Obscura Ring">
+    <div class="product-info-overlay">
+      <span class="product-name">The Obscura Ring</span>
+      <span class="product-myth">Forged in shadow, worn in light.</span>
+    </div>
+  </div>
+  </section>
+
+<script>
+  // Simple Intersection Observer to create "Release" motion
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.poetic-quote').forEach(q => observer.observe(q));
+</script>
                 animate={{ y: 0, opacity: 1, scale: 1 }}
                 transition={{ duration: 2.5, ease: [0.16, 1, 0.3, 1] }}
                 className="w-[1px] h-24 bg-gradient-to-b from-transparent via-[#bc9c6a] to-transparent mb-12 shadow-[0_0_15px_rgba(188,156,106,0.3)]"
